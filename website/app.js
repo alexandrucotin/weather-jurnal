@@ -1,36 +1,42 @@
-// Personal API Key for OpenWeatherMap API
+//API Key
+const apiKey = "62fa906e7367e8a40dd766e9eb5a1d0b";
 
-// Event listener to add function to existing HTML DOM element
-
-/* Function called by event listener */
-
-/* Function to GET Web API Data*/
-
-/* Function to POST data */
+let d = new Date();
+let month = d.getMonth() + 1;
+let newDate = d.getDate() + '/' + month + '/' + d.getFullYear();
 
 
-/* Function to GET Project Data */
+const constructApiUrl = (zipCode, countryCode) => {
+  const apiUrl = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},${countryCode}&units=metric&appid=${apiKey}`;
+  return apiUrl;
+};
 
-
-const postData = async (url = "", data = {}) => {
-  console.log(data);
-  const response = await fetch(url, {
-    method: "POST",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // Body data type must match "Content-Type" header
-    body: JSON.stringify(data),
-  });
-
+//get data from api
+const getDataFromApi = async () => {
+  const res = await fetch(constructApiUrl("37138", "IT"));
   try {
-    const newData = await response.json();
-    console.log(newData);
-    return newData;
-  } catch (error) {
-    console.log("error", error);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log("error", err);
   }
 };
 
-postData("/add", { answer: 42 });
+const getCurrentData = async () => {
+  const res = await fetch('http://localhost:8000/getData');
+  try {
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log("error", err);
+  }
+}
+
+
+
+getDataFromApi().then((data) => {
+  // console.log(`The temperature in ${data.name} is: ${data.main.temp}!
+  // Outside is ${data.weather.main} and the sunrise will be at ${data.sys.sunrise}`);
+  const weather = { city: data.name, temperature: data.main.temp };
+  console.log(weather)
+});

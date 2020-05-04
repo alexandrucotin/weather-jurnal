@@ -1,12 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/main.css">
-</head>
-<body>
-    <h1>HELLOOO!!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Jurnal</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1 class="header-title">Weather Jurnal</h1>
+      <p class="header-subtitle">by <b>Alexandru Cotin</b></p>
+    </div>
+    <div class="container">
+      <section class="form-section">
+        <form action="form">
+          <div class="form-group padding-tb">
+            <label class="label" for="">Insert Zip Code</label>
+            <input
+              type="text"
+              class="input"
+              id="zip"
+              placeholder="enter zip code here"
+            />
+          </div>
+          <div class="form-group padding-tb">
+            <label class="label" for="">Country code</label>
+            <input
+              class="input"
+              type="text"
+              id="country"
+              placeholder="enter country code here"
+            />
+          </div>
+          <div class="form-group padding-tb">
+            <label class="label" for="feelings"
+              >How are you feeling today?</label
+            >
+            <textarea
+              class="input"
+              class="myInput"
+              id="feelings"
+              placeholder="Enter your feelings here"
+              rows="3"
+              cols="50"
+            ></textarea>
+          </div>
+          <button class="button margin-tb" id="generate" type="submit">
+            Submit
+          </button>
+        </form>
+      </section>
+      <section class="response-content"></section>
+    </div>
+  </body>
+  <script src="app.js"></script>
 </html>
