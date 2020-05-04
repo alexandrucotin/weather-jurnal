@@ -16,14 +16,14 @@
       <p class="header-subtitle">by <b>Alexandru Cotin</b></p>
     </div>
     <div class="container">
-      <section class="form-section">
+      <section class="form-section margin-tb">
         <form action="form">
           <div class="form-group padding-tb">
             <label class="label" for="">Insert Zip Code</label>
             <input
               type="text"
+              id="zip-code"
               class="input"
-              id="zip"
               placeholder="enter zip code here"
             />
           </div>
@@ -31,8 +31,8 @@
             <label class="label" for="">Country code</label>
             <input
               class="input"
+              id="country-code"
               type="text"
-              id="country"
               placeholder="enter country code here"
             />
           </div>
@@ -49,12 +49,19 @@
               cols="50"
             ></textarea>
           </div>
-          <button class="button margin-tb" id="generate" type="submit">
+          <button class="button margin-tb" id="submit">
             Submit
           </button>
         </form>
       </section>
-      <section class="response-content"></section>
+      <section class="response-content">
+          <h5>city</h5>
+          <p id="city"></p>
+          <h5>Temperature</h5>
+          <p id="temperature"></p>
+          <h5>Your feelings</h5>
+          <p id="content"></p>
+      </section>
     </div>
   </body>
   <script src="app.js"></script>
