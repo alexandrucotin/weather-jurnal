@@ -6,12 +6,12 @@ const button = document.getElementById("submit");
 
 //date
 let date = new Date();
-let month = date.getMonth() + 1;
-let newDate = date.getDate() + "/" + month + "/" + date.getFullYear();
+let newDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
 //get data from api
 const getDataFromApi = async (zipCode, countryCode) => {
   const res = await fetch(
+    //changed to celcius (im from Italy)
     `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode},${countryCode}&units=metric&appid=${apiKey}`
   );
   try {
@@ -70,11 +70,12 @@ const updateUI = async () => {
   try {
     const data = await res.json();
     console.log("data in the updateUI is: ", data);
+    console.log(data.feelings);
     document.getElementById("date").textContent = data.date;
     document.getElementById("city").textContent = data.city;
     document.getElementById("weather").textContent = data.weather;
     document.getElementById("temperature").textContent = data.temperature;
-    document.getElementById("feelings").textContent = data.feelings;
+    document.getElementById("content").textContent = data.feelings;
   } catch (err) {
     console.log("error", err);
   }

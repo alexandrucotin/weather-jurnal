@@ -121,4 +121,27 @@ button:focus {
   color: white;
   border-radius: 0.8rem;
 }
+
+.response-content {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.response-content .table {
+  width: 50%;
+}
+
+.response-content .table td,
+.response-content .table th {
+  text-align: center;
+  padding: 0.5rem;
+}
 /*# sourceMappingURL=main.css.map */
