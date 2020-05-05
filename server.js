@@ -18,14 +18,17 @@ app.get("/getData", (req, res) => {
 app.post("/insertData", pushData);
 
 function pushData(req, res) {
-  const { city, temperature, feelings } = req.body;
-  projectData = {
+  const { date, city, weather, temperature, feelings } = req.body;
+  if (date != '' && city != '' && weather != '' && temperature != '' && feelings != '') {
+    projectData = {
+      date,
       city,
+      weather,
       temperature,
-      feelings
-  }
-  res.send(projectData);
-}
+      feelings,
+    };
+    res.status(202).send();
+}}
 
 //starting the server
 const port = 8000;

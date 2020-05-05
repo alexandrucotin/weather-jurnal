@@ -4,6 +4,11 @@ const apiKey = "62fa906e7367e8a40dd766e9eb5a1d0b";
 //button id
 const button = document.getElementById("submit");
 
+//date
+let date = new Date();
+let month = date.getMonth() + 1;
+let newDate = date.getDate() + "/" + month + "/" + date.getFullYear();
+
 //get data from api
 const getDataFromApi = async (zipCode, countryCode) => {
   const res = await fetch(
@@ -19,9 +24,9 @@ const getDataFromApi = async (zipCode, countryCode) => {
 
 const getCurrentData = async () => {
   const res = await fetch("http://localhost:8000/getData");
-  console.log(res);
   try {
     const data = await res.json();
+    console.log(data);
     return data;
   } catch (err) {
     console.log("error", err);
@@ -29,6 +34,7 @@ const getCurrentData = async () => {
 };
 
 const postData = async (url = "", data = {}) => {
+  console.log("data that IS in postData: ", data);
   const res = await fetch(url, {
     method: "POST",
     credentials: "same-origin",
@@ -37,40 +43,38 @@ const postData = async (url = "", data = {}) => {
     },
     body: JSON.stringify(data),
   });
-  try {
-    const newData = await res.json();
-    console.log(newData);
-    return newData;
-  } catch (error) {
-    console.log("error", error);
-  }
 };
 
-async function submit() {
+const submit = async () => {
   const countryCode = document.getElementById("country-code").value;
   const zipCode = document.getElementById("zip-code").value;
   const feelings = document.getElementById("feelings").value;
-  getDataFromApi(zipCode, countryCode).then((data) => {
-    const element = {
-      city: data.name,
-      temperature: data.main.temp,
-      feelings: feelings,
-    };
-    // console.log(element);
-    postData("/insertData", element);
-  });
-
-  updateUI();
-}
+  getDataFromApi(zipCode, countryCode)
+    .then((data) => {
+      const element = {
+        date: newDate,
+        city: data.name,
+        weather: data.weather[0].description,
+        temperature: data.main.temp,
+        feelings: feelings,
+      };
+      postData("/insertData", element);
+    })
+    .then(() => {
+      updateUI();
+    });
+};
 
 const updateUI = async () => {
-  const req = await fetch("/getData");
+  const res = await fetch("/getData");
   try {
-    const data = await req.json();
-    console.log(data);
+    const data = await res.json();
+    console.log("data in the updateUI is: ", data);
+    document.getElementById("date").textContent = data.date;
     document.getElementById("city").textContent = data.city;
+    document.getElementById("weather").textContent = data.weather;
     document.getElementById("temperature").textContent = data.temperature;
-    document.getElementById("content").textContent = data.feelings;
+    document.getElementById("feelings").textContent = data.feelings;
   } catch (err) {
     console.log("error", err);
   }
